@@ -26,3 +26,6 @@ hs_err_pid*
 /out
 /.idea
 *.iws
+
+# Test file(s)
+/src/com/mechadragonx/word/dictionary_words_small.txt

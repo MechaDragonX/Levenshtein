@@ -19,7 +19,7 @@ public class Main
         long elapse = endTime - startTime;
         System.out.println("\n" + elapse);
 
-        System.out.println(Lev("dog"));
+        System.out.println(Lev("dog", "bog"));
     }
     private static void readDictionary(String path) throws FileNotFoundException
     {
@@ -33,8 +33,12 @@ public class Main
             }
         }
     }
-    private static boolean Lev(String start)
+    private static boolean Lev(String start, String target)
     {
+        if(!words.contains(target))
+        {
+            return false;
+        }
         char[] wordArray = start.toLowerCase().toCharArray();
         char newLetter = 'a';
         int i = 0;
@@ -52,9 +56,14 @@ public class Main
                 {
                     wordArray[i] = newLetter;
                     test = String.valueOf(wordArray);
-                    if(words.contains(test))
+                    if(test.equals(target) && words.contains(test))
                     {
                         return true;
+                    }
+                    else if(test.charAt(i) == target.charAt(i))
+                    {
+                        newLetter = 'a';
+                        looping = false;
                     }
                     else
                     {
@@ -63,6 +72,7 @@ public class Main
                 }
                 else
                 {
+                    newLetter = 'a';
                     looping = false;
                 }
             }

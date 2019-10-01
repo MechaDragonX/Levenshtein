@@ -13,13 +13,8 @@ public class Main
 
     public static void main(String[] args) throws FileNotFoundException
     {
-        long startTime = System.currentTimeMillis();
         readDictionary("C:\\Users\\ragha\\OneDrive\\intellijence\\Levenshtein\\src\\com\\mechadragonx\\word\\dictionary_words_small.txt");
-        long endTime = System.currentTimeMillis();
-        long elapse = endTime - startTime;
-        System.out.println("\n" + elapse);
-
-        System.out.println(Lev("dog", "bog"));
+        System.out.println(Lev("dog", "cat"));
     }
     private static void readDictionary(String path) throws FileNotFoundException
     {
@@ -33,22 +28,29 @@ public class Main
             }
         }
     }
-    private static boolean Lev(String start, String target)
+    private static int Lev(String start, String target)
     {
-        if(!words.contains(target))
+        if(!words.contains(target) && !words.contains(start))
         {
-            return false;
+            return 0;
         }
+        if (editDistanceOfOne(start, target))
+        {
+            return 1;
+        }
+
         char[] wordArray = start.toLowerCase().toCharArray();
         char newLetter = 'a';
-        int i = 0;
         boolean looping = true;
         String test;
-        for(char letter : wordArray)
+        int editCount = 0 ;
+
+        for(int i = 0; i < start.length(); i++)
         {
+            looping = true;
             while(looping)
             {
-                if(newLetter == start.toCharArray()[i])
+                if(newLetter == wordArray[i])
                 {
                     newLetter++;
                 }
@@ -58,11 +60,12 @@ public class Main
                     test = String.valueOf(wordArray);
                     if(test.equals(target) && words.contains(test))
                     {
-                        return true;
+                        return editCount;
                     }
-                    else if(test.charAt(i) == target.charAt(i))
+                    else if((test.charAt(i) == target.charAt(i)) && words.contains(test))
                     {
                         newLetter = 'a';
+                        editCount++;
                         looping = false;
                     }
                     else
@@ -76,8 +79,21 @@ public class Main
                     looping = false;
                 }
             }
-            i++;
-            looping = true;
+        }
+        return editCount;
+    }
+    private static boolean editDistanceOfOne(String start, String target) {
+        int differences = 0;
+        for(int i = 0; i < start.length(); i++)
+        {
+            if(!(start.charAt(i) == target.charAt(i)))
+            {
+                differences++;
+            }
+        }
+        if(differences == 1)
+        {
+            return true;
         }
         return false;
     }

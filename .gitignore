@@ -28,4 +28,4 @@ hs_err_pid*
 *.iws
 
 # Test file(s)
-/src/com/mechadragonx/word/dictionary_words_small.txt
+/data/dictionary_words_small.txt

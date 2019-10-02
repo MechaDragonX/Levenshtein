@@ -13,8 +13,8 @@ public class Main
 
     public static void main(String[] args) throws FileNotFoundException
     {
-        readDictionary("C:\\Users\\ragha\\OneDrive\\intellijence\\Levenshtein\\src\\com\\mechadragonx\\word\\dictionary_words_small.txt");
-        print("end", "dot", Lev("end", "dot"));
+        readDictionary(".\\data\\dictionary_words_small.txt");
+        print("dog", "cat", Lev("dog", "cat"));
     }
     private static void readDictionary(String path) throws FileNotFoundException
     {

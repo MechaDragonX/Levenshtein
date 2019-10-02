@@ -14,7 +14,7 @@ public class Main
     public static void main(String[] args) throws FileNotFoundException
     {
         readDictionary("C:\\Users\\ragha\\OneDrive\\intellijence\\Levenshtein\\src\\com\\mechadragonx\\word\\dictionary_words_small.txt");
-        System.out.println(Lev("dog", "cat"));
+        print("end", "dot", Lev("end", "dot"));
     }
     private static void readDictionary(String path) throws FileNotFoundException
     {
@@ -30,6 +30,10 @@ public class Main
     }
     private static int Lev(String start, String target)
     {
+        if(start.length() != target.length())
+        {
+            return 0;
+        }
         if(!words.contains(target) && !words.contains(start))
         {
             return 0;
@@ -45,14 +49,13 @@ public class Main
         String test;
         int editCount = 0 ;
 
-        for(int i = 0; i < start.length(); i++)
+        for(int i = start.length() - 1; i >= 0; i--)
         {
-            looping = true;
             while(looping)
             {
-                if(newLetter == wordArray[i])
+                if(wordArray[i] == target.charAt(i))
                 {
-                    newLetter++;
+                    looping = false;
                 }
                 if(newLetter >= 97 && newLetter <= 122) // a = 97 and z = 122 in ASCII
                 {
@@ -60,9 +63,10 @@ public class Main
                     test = String.valueOf(wordArray);
                     if(test.equals(target) && words.contains(test))
                     {
+                        editCount++;
                         return editCount;
                     }
-                    else if((test.charAt(i) == target.charAt(i)) && words.contains(test))
+                    else if(test.charAt(i) == target.charAt(i))
                     {
                         newLetter = 'a';
                         editCount++;
@@ -79,6 +83,7 @@ public class Main
                     looping = false;
                 }
             }
+            looping = true;
         }
         return editCount;
     }
@@ -95,6 +100,20 @@ public class Main
         {
             return true;
         }
-        return false;
+        else
+        {
+            return false;
+        }
+    }
+    private static void print(String start, String target, int editCount)
+    {
+        if(editCount == 0)
+        {
+            System.out.println("No path found!");
+        }
+        else
+        {
+            System.out.println(target + " is " + editCount + " words away from " + start);
+        }
     }
 }

@@ -12,10 +12,18 @@ public class Main
 
     public static void main(String[] args) throws FileNotFoundException
     {
-        readDictionary(".\\data\\dang-tent.txt");
-        String start = "dang";
-        String target = "tent";
-        print(start, target, vlad(start, target));
+        long startTime = System.currentTimeMillis();
+
+        readDictionary(".\\data\\dictionary_words_small.txt");
+        String start = "salesman";
+        String target = "business";
+        int distance = vlad(start, target);
+
+        long endTime = System.currentTimeMillis();
+        long elapse = endTime - startTime;
+
+        print(start, target, distance);
+        System.out.println("\nExecution completed in " + elapse + " ms.");
     }
     private static void readDictionary(String path) throws FileNotFoundException
     {
